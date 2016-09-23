@@ -34,7 +34,7 @@ module.exports = {
 			newJob.category_id = cat.dataValues.id;
 			jobCreation();
 		}).catch(error => res.status(400).send("Category does not Exist"));
-	},	
+	},
 
 	queryJobs: (req, res) => {
 		Job.findAll({ where : {[req.query.field]:req.query.key} })

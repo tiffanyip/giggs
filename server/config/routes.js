@@ -6,7 +6,7 @@ const userController = require('../user/userCtrl');
 const checkUsername = require('./middleware').checkUsername;
 const checkEmail = require('./middleware').checkEmail;
 
-router.get('/applicant', applicantController.helloWorld);
+router.get('/db/applicant/apply', applicantController.applyJob);
 
 router.get('/category', categoryController.createDummyCategories);
 
