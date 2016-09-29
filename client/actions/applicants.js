@@ -3,7 +3,6 @@ import Cookies from 'js-cookie';
 import { APPLY_JOB, CANCEL_JOB, UPDATE_BID, GET_APPLICANTS } from './actionTypes';
 
 export function getApplicants(jobID) {
-  var applicants = [];
   return (dispatch) => {
     return axios.get('/db/applicant/', { params: { job_id: jobID } }, {
       headers: { 'x-access-token': Cookies.getJSON('token') } })
@@ -14,15 +13,12 @@ export function getApplicants(jobID) {
             { headers: { 'x-access-token': Cookies.getJSON('token') } })
             .then(res => {
               applicant.username = res.data.username;
-              console.log("applicant", applicant);
-              applicants.push(applicant);
               return applicant;
             })
           })
       )
-      .then(() => {
-        console.log("dispatch ");
-        dispatch({ type: GET_APPLICANTS, payload: applicants });
+      .then((result) => {
+        dispatch({ type: GET_APPLICANTS, payload: result });
       })
     })
     .catch(error => {

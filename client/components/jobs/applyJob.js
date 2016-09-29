@@ -16,20 +16,19 @@ class ApplyJob extends Component {
   }
   handleApply(e) {
     e.preventDefault();
-    this.state.info.bid_price = this.state.bid;
-    this.props.applyJob(this.state.info)
-    .then(response => {
-      console.log("response", response);
-    })
-    .catch(err => {
-      throw err;
-    });
-    this.setState({ bid: '' });
+    var errorMessage = '';
+    if (e.target.value < 0 ){
+      errorMessage = 'Invalid bid price';
+    } else {
+      this.state.info.bid_price = this.state.bid;
+      this.props.applyJob(this.state.info);
+      this.setState({ bid: '' });
+    }
   }
 
   render() {
     return (
-      <div className="col-md-4">
+      <div>
         <form onSubmit={this.handleApply} className="input-group">
           <div className="input-group-addon">$</div>
           <input

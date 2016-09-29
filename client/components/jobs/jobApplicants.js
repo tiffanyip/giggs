@@ -5,6 +5,8 @@ import Moment from 'moment';
 
 import { getApplicants } from '../../actions/applicants';
 
+import ApplyJob from './applyJob';
+
 class JobApplicants extends Component {
 
   componentWillMount() {
@@ -32,6 +34,7 @@ class JobApplicants extends Component {
       <div className="col-md-4">
         <h4> Job Applicants: </h4>
         {this.props.apply.applicants.map(this.renderApplicants)}
+        <ApplyJob job_id={5} user_id={14} />
       </div>
     );
   }
