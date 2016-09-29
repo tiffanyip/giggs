@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import Cookies from 'js-cookie';
 import { applyJob } from '../../actions/applicants';
 
 class ApplyJob extends Component {
   constructor(props) {
     super(props);
-    this.state = { bid: '', info: { user_id: this.props.user_id, job_id: this.props.job_id } };
+    this.state = {
+      bid: '',
+      info: {
+        user_id: Cookies.getJSON('user').userid,
+        job_id: this.props.jobs.job.job_id
+      }
+    };
     this.handleApply = this.handleApply.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
   }
@@ -14,16 +21,12 @@ class ApplyJob extends Component {
   onInputChange(e) {
     this.setState({ bid: e.target.value });
   }
+
   handleApply(e) {
     e.preventDefault();
-    var errorMessage = '';
-    if (e.target.value < 0 ){
-      errorMessage = 'Invalid bid price';
-    } else {
-      this.state.info.bid_price = this.state.bid;
-      this.props.applyJob(this.state.info);
-      this.setState({ bid: '' });
-    }
+    this.state.info.bid_price = this.state.bid;
+    this.props.applyJob(this.state.info);
+    this.setState({ bid: '' });
   }
 
   render() {
@@ -36,6 +39,8 @@ class ApplyJob extends Component {
             placeholder="Enter Bid Price"
             value={this.state.bid}
             type="number"
+            min="1"
+            max={this.props.jobs.job.max_price}
             onChange={this.onInputChange}
           />
           <div className="input-group-addon">.00</div>
@@ -54,8 +59,8 @@ class ApplyJob extends Component {
   }
 }
 
-function mapStateToProps({ apply }) {
-  return { apply };
+function mapStateToProps({ apply, jobs }) {
+  return { apply, jobs };
 }
 
 function mapDispatchToProps(dispatch) {

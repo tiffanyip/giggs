@@ -1,28 +1,17 @@
 import Moment from 'moment';
 import React, { Component } from 'react';
-import Cookies from 'js-cookie';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { getJobDetail, getCategoryName } from '../../actions/jobs';
+import { getJobDetail } from '../../actions/jobs';
 
-import ApplyJob from './applyJob';
 import JobApplicants from './jobApplicants';
-
+import ApplyJob from './applyJob';
 
 class SelectedJob extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      user: Cookies.getJSON('user').userid,
-      job: {},
-    };
-  }
 
   componentWillMount() {
-    this.props.getJobDetail(5).then(() => {
-      this.setState({ job: this.props.jobs.job });
-    });
+    this.props.getJobDetail(5);
   }
 
   render() {
@@ -39,8 +28,8 @@ class SelectedJob extends Component {
           <h4> Job Created: </h4>{Moment(this.props.jobs.job.createdAt).format('LLL')} <br />
           <h4> Deadline: </h4>{Moment(this.props.jobs.job.deadline).format('LLL')} <br />
         </div>
-        <JobApplicants job_id={5} user_id={this.state.user}/>
-        {/* <ApplyJob job_id={5} user_id={this.state.user} /> */}
+        <JobApplicants />
+        <ApplyJob />
       </div>
     );
   }
@@ -51,7 +40,7 @@ function mapStateToProps({ jobs }) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getJobDetail, getCategoryName }, dispatch);
+  return bindActionCreators({ getJobDetail }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SelectedJob);

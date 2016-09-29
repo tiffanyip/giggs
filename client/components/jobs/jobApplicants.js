@@ -5,12 +5,15 @@ import Moment from 'moment';
 
 import { getApplicants } from '../../actions/applicants';
 
-import ApplyJob from './applyJob';
-
 class JobApplicants extends Component {
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      job: this.props.jobs.job
+    };
+  }
   componentWillMount() {
-    this.props.getApplicants(5);
+    this.props.getApplicants(this.props.jobs.job.id);
   }
 
   renderApplicants(applicantData) {
@@ -20,7 +23,7 @@ class JobApplicants extends Component {
           Username: {applicantData.username}
         </p>
         <p>
-          Bid Price: {applicantData.bid_price}
+          Bid Price: $ {applicantData.bid_price}
         </p>
         <p>
           Applied at: {Moment(applicantData.createdAt).format('LLL')}
@@ -34,14 +37,13 @@ class JobApplicants extends Component {
       <div className="col-md-4">
         <h4> Job Applicants: </h4>
         {this.props.apply.applicants.map(this.renderApplicants)}
-        <ApplyJob job_id={5} user_id={14} />
       </div>
     );
   }
 }
 
-function mapStateToProps({ apply }) {
-  return { apply };
+function mapStateToProps({ apply, jobs }) {
+  return { apply, jobs };
 }
 
 function mapDispatchToProps(dispatch) {
