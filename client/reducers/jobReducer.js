@@ -11,13 +11,13 @@ export default function (state = INITIAL_STATE, { type, payload }) {
     case GET_ALL_JOBS:
       return { ...state, jobList: payload };
     case SORT_CATEGORIES:
-      return {...state, jobList: payload}
+      return { ...state, jobList: payload };
     case SORT_PRICE:
-      return {...state, jobList: payload}
+      return { ...state, jobList: payload };
     case SORT_DATE:
-      return {...state, jobList: payload}
+      return { ...state, jobList: payload };
     case FILTER_CATEGORY:
-      return {...state, jobList: payload}
+      return { ...state, jobList: payload };
     default:
       return state;
   }
