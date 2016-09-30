@@ -13,7 +13,7 @@ export const GET_JOBS = 'get_jobs';
 export const SET_JOBID = 'set_jobid';
 
 export const APPLY_JOB = 'apply_job';
-export const CANCEL_JOB = 'cancel_job';
+export const CANCEL_APP = 'cancel_job';
 export const UPDATE_BID = 'update_bid';
 export const GET_APPLICANTS = 'get_applicants';
 export const UPDATE_STATUS = 'update_status';

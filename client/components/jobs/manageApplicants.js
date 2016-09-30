@@ -8,6 +8,7 @@ class ManageApplicants extends Component {
   constructor(props) {
     super(props);
     this.updateStatus = this.updateStatus.bind(this);
+    this.renderApplicants = this.renderApplicants.bind(this);
   }
 
   componentWillMount() {
@@ -15,10 +16,9 @@ class ManageApplicants extends Component {
     console.log('this.props.jobs.job', this.props.jobs.job);
   }
 
-  updateStatus(jobID) {
-
+  updateStatus(jobID, status) {
+    console.log('in updateStatus', jobID);
   }
-
   renderApplicants(applicantData) {
     return (
       <div key={applicantData.id}>
@@ -34,22 +34,23 @@ class ManageApplicants extends Component {
         <p>
           Status: {applicantData.job_status}
         </p>
+        {}
         {(() => {
           switch (applicantData.job_status) {
             case 'pending':
               return (
                 <div>
-                  <button>
+                  <button onClick={() => this.updateStatus(applicantData.job_id, 'accept')}>
                     Accept
                   </button>
-                  <button>
+                  <button onClick={() => this.updateStatus(applicantData.job_id, 'rejected')}>
                     Reject
                   </button>
                 </div>
               );
             case 'accepted':
               return (
-                <button>
+                <button onClick={() => this.updateStatus(applicantData.job_id, 'completed')}>
                   Mark as completed
                 </button>
               );
