@@ -56,7 +56,6 @@ class ApplyJob extends Component {
             </button>
           </span>
         </form>
-        <pre><code>{JSON.stringify(this.props.apply.applicants, null, 4)}</code></pre>
       </div>
     );
   }

@@ -7,11 +7,9 @@ import { getJobDetail } from '../../actions/jobs';
 import ApplicantList from './applicantList';
 import ApplyJob from './applyJob';
 
-
 class SelectedJob extends Component {
 
   componentWillMount() {
-    console.log(' inside selectedJob.js: getJobDetail action set');
     this.props.getJobDetail(5);
   }
 

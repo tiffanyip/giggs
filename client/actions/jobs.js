@@ -75,7 +75,6 @@ export function getJobDetail(jobID) {
         })
         .then(resp => {
           response.data[0].category = resp.data[0].name;
-          console.log('jobs.js: inside promise getJobDetail actions');
           dispatch({ type: GET_JOBS, payload: response.data[0] });
         });
       });

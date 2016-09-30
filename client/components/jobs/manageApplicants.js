@@ -5,15 +5,16 @@ import Moment from 'moment';
 
 import { getApplicants } from '../../actions/applicants';
 
-class ApplicantList extends Component {
+class ManageApplicants extends Component {
 
   componentWillMount() {
     this.props.getApplicants(this.props.jobs.job.id);
+    console.log("this.props.jobs.job", this.props.jobs.job);
   }
 
   renderApplicants(applicantData) {
     return (
-      <div key={applicantData.user_id}>
+      <div key={applicantData.id}>
         <p>
           User: {applicantData.username}
         </p>
@@ -23,6 +24,9 @@ class ApplicantList extends Component {
         <p>
           Applied at: {Moment(applicantData.createdAt).format('LLL')}
         </p>
+        <button className="btn btn-secondary">
+          Accept
+        </button>
       </div>
     );
   }
@@ -30,7 +34,7 @@ class ApplicantList extends Component {
   render() {
     return (
       <div>
-        <h4>Job Applicants:</h4>
+        <h4> Manage Applicants: </h4>
         {this.props.apply.applicants.map(this.renderApplicants)}
       </div>
     );
@@ -45,4 +49,4 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({ getApplicants }, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ApplicantList);
+export default connect(mapStateToProps, mapDispatchToProps)(ManageApplicants);
