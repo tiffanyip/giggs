@@ -7,9 +7,6 @@ import { getApplicants } from '../../actions/applicants';
 import ManageApplicants from './manageApplicants';
 
 class JobAdmin extends Component {
-  componentWillMount() {
-    this.props.getJobDetail(5);
-  }
 
   render() {
     return (
@@ -24,6 +21,9 @@ class JobAdmin extends Component {
           <h4> Max Price: </h4> ${this.props.jobs.job.max_price} <br />
           <h4> Job Created: </h4>{Moment(this.props.jobs.job.createdAt).format('LLL')} <br />
           <h4> Deadline: </h4>{Moment(this.props.jobs.job.deadline).format('LLL')} <br />
+          <button className="btn btn-secondary">
+            Cancel Job
+          </button>
         </div>
         <ManageApplicants />
       </div>

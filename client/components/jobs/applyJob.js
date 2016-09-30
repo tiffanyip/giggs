@@ -9,7 +9,7 @@ class ApplyJob extends Component {
     super(props);
     this.state = {
       user_id: Cookies.getJSON('user').userid,
-      job_id: 5,
+      job_id: this.props.jobs.job.id,
       bid_price: ''
     };
     this.handleApply = this.handleApply.bind(this);
@@ -33,7 +33,7 @@ class ApplyJob extends Component {
 
   render() {
     return (
-      <div>
+      <div className="col-md-4">
         <form onSubmit={this.handleApply} className="input-group">
           <div className="input-group-addon">$</div>
           <input
