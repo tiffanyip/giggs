@@ -1,6 +1,6 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { APPLY_JOB, CANCEL_JOB, UPDATE_BID, GET_APPLICANTS } from './actionTypes';
+import { APPLY_JOB, CANCEL_JOB, UPDATE_BID, GET_APPLICANTS, UPDATE_STATUS } from './actionTypes';
 
 export function getApplicants(jobID) {
   return (dispatch) => {
@@ -69,12 +69,12 @@ export function cancelJob(info) {
   };
 }
 
-export function getUsername(userID) {
+export function changeStatus(params) {
   return (dispatch) => {
-    return axios.get(`/db/users/${userID}`,
+    return axios.get('/db/applicants/changeStatus', { params },
     { headers: { 'x-access-token': Cookies.getJSON('token') } })
     .then(response => {
-      dispatch({ type: GET_USERNAME, payload: response.data });
+      dispatch({ type: UPDATE_STATUS, payload: response.data });
     })
     .catch(error => {
       throw error;
