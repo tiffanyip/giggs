@@ -10,6 +10,7 @@ export const GET_USER = 'get_user';
 export const GET_ALL_JOBS = 'get_all_jobs';
 export const GET_PARENT_CATS = 'get_parents_cats';
 export const GET_JOBS = 'get_jobs';
+export const SET_JOBID = 'set_jobid';
 
 export const APPLY_JOB = 'apply_job';
 export const CANCEL_JOB = 'cancel_job';

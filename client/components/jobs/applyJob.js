@@ -2,31 +2,33 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Cookies from 'js-cookie';
-import { applyJob } from '../../actions/applicants';
+import { applyJob, getApplicants } from '../../actions/applicants';
 
 class ApplyJob extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      bid: '',
-      info: {
-        user_id: Cookies.getJSON('user').userid,
-        job_id: this.props.jobs.job.job_id
-      }
+      user_id: Cookies.getJSON('user').userid,
+      job_id: 5,
+      bid_price: ''
     };
     this.handleApply = this.handleApply.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
   }
 
   onInputChange(e) {
-    this.setState({ bid: e.target.value });
+    this.setState({ bid_price: e.target.value });
   }
 
   handleApply(e) {
     e.preventDefault();
-    this.state.info.bid_price = this.state.bid;
-    this.props.applyJob(this.state.info);
-    this.setState({ bid: '' });
+    //bid_price = this.state.bid
+    this.props.applyJob(this.state)
+    .then(() => {
+      this.props.getApplicants(this.props.jobs.job.id);
+    });
+
+    this.setState({ bid_price: '' });
   }
 
   render() {
@@ -37,7 +39,7 @@ class ApplyJob extends Component {
           <input
             className="form-control"
             placeholder="Enter Bid Price"
-            value={this.state.bid}
+            value={this.state.bid_price}
             type="number"
             min="1"
             max={this.props.jobs.job.max_price}
@@ -54,6 +56,7 @@ class ApplyJob extends Component {
             </button>
           </span>
         </form>
+        <pre><code>{JSON.stringify(this.props.apply.applicants, null, 4)}</code></pre>
       </div>
     );
   }
@@ -64,7 +67,7 @@ function mapStateToProps({ apply, jobs }) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ applyJob }, dispatch);
+  return bindActionCreators({ applyJob, getApplicants }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ApplyJob);

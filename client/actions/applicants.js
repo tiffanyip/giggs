@@ -18,6 +18,7 @@ export function getApplicants(jobID) {
           })
       )
       .then((result) => {
+        console.log('application action: ', result)
         dispatch({ type: GET_APPLICANTS, payload: result });
       })
     })
@@ -41,10 +42,12 @@ export function updateBid(info) {
 }
 
 export function applyJob(info) {
+  console.log('info: ', info);
   return (dispatch) => {
     return axios.post('/db/applicant/apply', info, {
       headers: { 'x-access-token': Cookies.getJSON('token') } })
     .then(response => {
+      console.log('response: ', response.data);
       dispatch({ type: APPLY_JOB, payload: response.data });
     })
     .catch(error => {

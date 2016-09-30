@@ -5,13 +5,14 @@ import Moment from 'moment';
 
 import { getApplicants } from '../../actions/applicants';
 
-class JobApplicants extends Component {
+class ApplicantList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      job: this.props.jobs.job
+      applicants: this.props.apply.applicants
     };
   }
+
   componentWillMount() {
     this.props.getApplicants(this.props.jobs.job.id);
   }
@@ -19,23 +20,23 @@ class JobApplicants extends Component {
   renderApplicants(applicantData) {
     return (
       <div key={applicantData.user_id}>
-        <p>
-          Username: {applicantData.username}
-        </p>
-        <p>
-          Bid Price: $ {applicantData.bid_price}
-        </p>
-        <p>
-          Applied at: {Moment(applicantData.createdAt).format('LLL')}
-        </p>
+        <h4>
+          user: {applicantData.username}
+        </h4>
+        <h4>
+          bid_price: {applicantData.bid_price}
+        </h4>
+        <h4>
+          applied at: {Moment(applicantData.createdAt).format('LLL')}
+        </h4>
       </div>
     );
   }
 
   render() {
     return (
-      <div className="col-md-4">
-        <h4> Job Applicants: </h4>
+      <div>
+        Job Applicants:
         {this.props.apply.applicants.map(this.renderApplicants)}
       </div>
     );
@@ -50,4 +51,4 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({ getApplicants }, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(JobApplicants);
+export default connect(mapStateToProps, mapDispatchToProps)(ApplicantList);

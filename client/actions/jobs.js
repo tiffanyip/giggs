@@ -2,7 +2,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { SubmissionError } from 'redux-form';
 import { browserHistory } from 'react-router';
-import { GET_ALL_JOBS, CREATE_JOB, GET_JOBS, SORT_PRICE, SORT_CATEGORIES, SORT_DATE, FILTER_CATEGORY } from './actionTypes';
+import { GET_ALL_JOBS, CREATE_JOB, GET_JOBS, SORT_PRICE, SORT_CATEGORIES, SORT_DATE, FILTER_CATEGORY, SET_JOBID } from './actionTypes';
 
 export function sendJob(jobDetails) {
   const jobDet = jobDetails;
@@ -52,8 +52,10 @@ export function getJobList() {
 }
 
 export function getJobDetail(jobID) {
+  console.log('jobs.js: inside start of getJobDetail actions');
   const field = 'id';
   return (dispatch) => {
+    dispatch({type: SET_JOBID, payload: jobID})
     return axios.get('/db/jobs/query', {
       params: {
         field,
@@ -73,6 +75,7 @@ export function getJobDetail(jobID) {
         })
         .then(resp => {
           response.data[0].category = resp.data[0].name;
+          console.log('jobs.js: inside promise getJobDetail actions');
           dispatch({ type: GET_JOBS, payload: response.data[0] });
         });
       });
